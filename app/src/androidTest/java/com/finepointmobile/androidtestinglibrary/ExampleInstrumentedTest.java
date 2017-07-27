@@ -6,13 +6,17 @@ import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.finepointmobile.androidtestinglibrary.model.User;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -33,7 +37,10 @@ public class ExampleInstrumentedTest {
 
         assertEquals("com.finepointmobile.androidtestinglibrary", appContext.getPackageName());
 
+        User user = new User("Daniel", "Malone", 25);
+
         Espresso.onView(withId(R.id.first_name)).perform(click());
-        Espresso.onView(withId(R.id.first_name)).perform(typeText("Daniel Malone is awesome!"));
+        Espresso.onView(withId(R.id.first_name)).perform(typeText(user.getFirstName()));
+        Espresso.onView(withId(R.id.first_name)).check(matches(withText("Daniel")));
     }
 }
